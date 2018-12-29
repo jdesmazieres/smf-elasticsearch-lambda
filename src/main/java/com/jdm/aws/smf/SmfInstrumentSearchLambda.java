@@ -28,12 +28,11 @@ import org.apache.http.nio.entity.NStringEntity;
 import org.elasticsearch.client.Response;
 import org.elasticsearch.client.RestClient;
 
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
+import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.Collections;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class SmfInstrumentSearchLambda {
 	private static String serviceName = "es";
@@ -43,25 +42,29 @@ public class SmfInstrumentSearchLambda {
 	private static String searchPath = "/instrument/_search";
 	private static String countPath = "/instrument/_count";
 
-	static final AWSCredentialsProvider credentialsProvider = new DefaultAWSCredentialsProviderChain();
+	private static final AWSCredentialsProvider credentialsProvider = new DefaultAWSCredentialsProviderChain();
 
-	public String handleRequest(final String searchRequest, final Context context) throws IOException {
+	public String handleCount(final String searchQuery, final Context context) throws IOException {
 		final LambdaLogger log = context.getLogger();
-		log.log("search('" + searchRequest + "') ...");
+		log.log("search('" + searchQuery + "') ...\n");
 
 		final RestClient esClient = esClient(serviceName, region);
 
-		final HttpEntity entity = new NStringEntity(searchRequest, ContentType.APPLICATION_JSON);
+		final HttpEntity entity = new NStringEntity(searchQuery, ContentType.APPLICATION_JSON);
 		final Map<String, String> params = Collections.emptyMap();
-		final Response response = esClient.performRequest("POST", searchPath, params, entity);
+		final Response response = esClient.performRequest("POST", countPath, params, entity);
 
-		log.log(response.toString());
+		final String content = new BufferedReader(new InputStreamReader(response.getEntity()
+				.getContent()))
+				.lines()
+				.collect(Collectors.joining("\n"));
+		log.log("\n\n--------------------\n" + response.toString() + "\n" + content + "\n--------------------\n\n");
 
 		return response.toString();
 	}
 
 	// Adds the interceptor to the ES REST client
-	public static RestClient esClient(String serviceName, String region) {
+	private static RestClient esClient(String serviceName, String region) {
 		final AWS4Signer signer = new AWS4Signer();
 		signer.setServiceName(serviceName);
 		signer.setRegionName(region);

@@ -5,6 +5,6 @@ Resources:
     Type: 'AWS::Serverless::Function'
     Properties:
       Runtime: java8
-      Handler: com.jdm.aws.smf.SmfInstrumentSearchPojoLambda::handleCount
+      Handler: com.jdm.aws.smf.SmfInstrumentSearchLambda::handleCount
       Timeout: 60
       CodeUri: ./target/lambda.jar

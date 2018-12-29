@@ -68,7 +68,7 @@ public class SmfInstrumentSearchPojoLambda
 		String content = getContent(response);
 		//log.log("--------------------->   SmfInstrumentSearchPojoLambda.count(): \n"+content+"\n");
 		//int hitCount = getHitCount(content);
-		log.log("================================================================== >>> count: " + getCount(content) + "\n");
+		log.log("================================================================== >>> count: " + getCount(response) + "\n");
 
 		return content;
 	}

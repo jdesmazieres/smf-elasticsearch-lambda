@@ -26,7 +26,6 @@ import org.apache.http.HttpHost;
 import org.apache.http.HttpRequestInterceptor;
 import org.apache.http.entity.ContentType;
 import org.apache.http.nio.entity.NStringEntity;
-import org.elasticsearch.client.Request;
 import org.elasticsearch.client.Response;
 import org.elasticsearch.client.RestClient;
 
@@ -45,31 +44,29 @@ public class AbstractSearchLambda {
 	private static String searchPath = "/instrument/_search";
 	private static String countPath = "/instrument/_count";
 
-	static final AWSCredentialsProvider credentialsProvider = new DefaultAWSCredentialsProviderChain();
+	private static final AWSCredentialsProvider credentialsProvider = new DefaultAWSCredentialsProviderChain();
 
-	public Response search(final String jsonRequest, final Context context) throws IOException {
+	Response search(final String jsonRequest, final Context context) throws IOException {
 		final LambdaLogger log = context.getLogger();
 
 		final HttpEntity entity = new NStringEntity(jsonRequest, ContentType.APPLICATION_JSON);
 		final Map<String, String> params = Collections.emptyMap();
-		final RestClient esClient = esClient(serviceName, region, log);
+		final RestClient esClient = esClient(serviceName, region);
 
 		return esClient.performRequest("POST", searchPath, params, entity);
 	}
 
-	public Response count(final String jsonRequest, final Context context) throws IOException {
-		final LambdaLogger log = context.getLogger();
-
+	Response count(final String jsonRequest, final Context context) throws IOException {
 		final HttpEntity entity = new NStringEntity(jsonRequest, ContentType.APPLICATION_JSON);
 		final Map<String, String> params = Collections.emptyMap();
-		final RestClient esClient = esClient(serviceName, region, log);
+		final RestClient esClient = esClient(serviceName, region);
 
 		return esClient.performRequest("POST", countPath, params, entity);
 	}
 
 
 	// Adds the interceptor to the ES REST client
-	public RestClient esClient(final String serviceName, final String region, final LambdaLogger log) {
+	private RestClient esClient(final String serviceName, final String region) {
 		final AWS4Signer signer = new AWS4Signer();
 		signer.setServiceName(serviceName);
 		signer.setRegionName(region);
@@ -79,7 +76,7 @@ public class AbstractSearchLambda {
 				.build();
 	}
 
-	public String getContent(Response response) {
+	String getContent(final Response response) {
 		String content = "";
 		try {
 			content = new BufferedReader(new InputStreamReader(response.getEntity()
@@ -93,26 +90,27 @@ public class AbstractSearchLambda {
 	}
 
 
-	public int getCount(final String content) {
+	int getCount(final Response response) {
 		final ObjectMapper objectMapper = new ObjectMapper();
 
 		try {
-			JsonNode rootNode = objectMapper.readTree(content);
+			JsonNode rootNode = objectMapper.readTree(getContent(response));
 			JsonNode countNode = rootNode.path("count");
-			return  countNode.asInt();
+			return countNode.asInt();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		return -1;
 	}
-	public int getHitCount(final String content) {
+
+	int getHitCount(final String content) {
 		final ObjectMapper objectMapper = new ObjectMapper();
 
 		try {
 			JsonNode rootNode = objectMapper.readTree(content);
 			JsonNode hitsNode = rootNode.path("hits");
 			JsonNode totalNode = hitsNode.path("total");
-			return  totalNode.asInt();
+			return totalNode.asInt();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
