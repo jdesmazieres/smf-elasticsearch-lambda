@@ -1,0 +1,1 @@
+"{  \"query\": {    \"query_string\": {      \"default_field\": \"defaultSymbol\",      \"query\": \"0009940177\"    }  }}"

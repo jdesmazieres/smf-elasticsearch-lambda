@@ -1,0 +1,10 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: 'AWS::Serverless-2016-10-31'
+Resources:
+  SmfLambdaFunction:
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      Runtime: java8
+      Handler: com.jdm.aws.smf.SmfInstrumentSearchPojoLambda::handleCount
+      Timeout: 60
+      CodeUri: ./target/lambda.jar

@@ -1,0 +1,345 @@
+{
+  "took": 22,
+  "timed_out": false,
+  "_shards": {
+    "total": 5,
+    "successful": 5,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": 1,
+    "max_score": 0.2876821,
+    "hits": [
+      {
+        "_index": "instrument",
+        "_type": "_doc",
+        "_id": "0009940177",
+        "_score": 0.2876821,
+        "_source": {
+          "bookCostCurrencyISO": "GBP",
+          "defaultInstrIdent": {
+            "symbol": "0009940177",
+            "securityRef": "LOC/0009940177"
+          },
+          "expirationDate": 2524518000000,
+          "industries": [
+            {
+              "scheme": "LOC",
+              "symbol": "65D",
+              "industryShName": "Real Estate",
+              "industryName": "Real Estate"
+            }
+          ],
+          "instrIdents": [
+            {
+              "scheme": "LOC",
+              "symbol": "0009940177",
+              "securityRef": "LOC/0009940177"
+            }
+          ],
+          "instrUsage": "BOTH",
+          "issueAmount": 0.0,
+          "mainTrdPlaceMIC": "XLON",
+          "nativeCountryISO": "GB",
+          "nominalAmount": 0.0,
+          "nominalCurrencyISO": "GBP",
+          "nominalNotPaid": 0.0,
+          "referencePrice": {
+            "listingType": {
+              "listingTypeID": 0,
+              "name": "Price per unit",
+              "quotationType": 1
+            },
+            "quoteCurrencyISO": "GBP",
+            "quoteDate": 1543964400000,
+            "quoteValue": 1.109500,
+            "quoteValueInUnit": 1.109500
+          },
+          "refQuoteCurrencyISO": "GBP",
+          "riskCountryISO": "GB",
+          "riskCurrencyISO": "GBP",
+          "shortName": "CFD INTU",
+          "unit": "UNIT",
+          "validFrom": 1542582000000,
+          "instrSetMemberships": [
+            {
+              "scheme": "OTHER",
+              "name": "V2_initial_instr_G2",
+              "description": "List of initial instruments to load into V2, according to G2 needs",
+              "instrSetID": 1792,
+              "entityGrpName": "None"
+            }
+          ],
+          "mainTradingPlace": {
+            "homeCountryISO": "GB",
+            "identifier": {
+              "symbol": "036"
+            },
+            "shortName": "London Stock Exchange",
+            "longName": "London Stock Exchange",
+            "primaryPlace": true,
+            "institutionID": 10036,
+            "alternateTradingPlace": {
+              "symbol": "XLON"
+            },
+            "settlePeriod": 2,
+            "listing": {
+              "currCodeISO": "GBP",
+              "listingType": {
+                "listingTypeID": 0,
+                "name": "Price per unit",
+                "quotationType": 1
+              }
+            }
+          },
+          "allTradingPlaces": [
+            {
+              "homeCountryISO": "GB",
+              "identifier": {
+                "symbol": "036"
+              },
+              "shortName": "London Stock Exchange",
+              "longName": "London Stock Exchange",
+              "primaryPlace": true,
+              "institutionID": 10036,
+              "alternateTradingPlace": {
+                "symbol": "XLON"
+              },
+              "settlePeriod": 2,
+              "quotationCurrencyISO": "GBP",
+              "instiSymbolMIC": "XLON",
+              "listingTypeID": 0,
+              "listing": {
+                "currCodeISO": "GBP",
+                "listingType": {
+                  "listingTypeID": 0,
+                  "name": "Price per unit",
+                  "quotationType": 1
+                }
+              }
+            },
+            {
+              "homeCountryISO": "GB",
+              "identifier": {
+                "symbol": "361"
+              },
+              "shortName": "SETS LONDON S.E.",
+              "longName": "SETS LONDON S.E.",
+              "primaryPlace": true,
+              "institutionID": 13635,
+              "alternateTradingPlace": {},
+              "settlePeriod": 2,
+              "quotationCurrencyISO": "GBP",
+              "listingTypeID": 0,
+              "listing": {
+                "currCodeISO": "GBP",
+                "listingType": {
+                  "listingTypeID": 0,
+                  "name": "Price per unit",
+                  "quotationType": 1
+                }
+              }
+            }
+          ],
+          "instrGroups": {
+            "TOB": "0",
+            "DerivativeClearing": "OTC",
+            "CFIGroup": "FF",
+            "AIFMD_LPCC": "OT",
+            "UK_SITUS": "No",
+            "IFRS": "Liquid"
+          },
+          "instrInGroups": [
+            {
+              "scheme": "DERIVATIVE_CLEARING",
+              "instrGroupID": "OTC",
+              "validFrom": 1542627917000,
+              "validTo": 253402210800000
+            },
+            {
+              "scheme": "LOCINSTRGROUP",
+              "instrGroupID": "5",
+              "validFrom": 1542626312000,
+              "validTo": 253402210800000
+            },
+            {
+              "scheme": "IFRS",
+              "instrGroupID": "Liquid",
+              "validFrom": 1542626311000,
+              "validTo": 253402210800000
+            },
+            {
+              "scheme": "TOB",
+              "instrGroupID": "0",
+              "validFrom": 1542633441000,
+              "validTo": 253402210800000
+            },
+            {
+              "scheme": "LOCCREDITCODE",
+              "instrGroupID": "SV",
+              "validFrom": 1542626311000,
+              "validTo": 253402210800000
+            },
+            {
+              "scheme": "AIFMD_LPCC",
+              "instrGroupID": "OT",
+              "validFrom": 1542626312000,
+              "validTo": 253402210800000
+            },
+            {
+              "scheme": "LOCINSTRNATURESUB",
+              "instrGroupID": "CFDEQUITY",
+              "validFrom": 1542626312000,
+              "validTo": 253402210800000
+            },
+            {
+              "scheme": "LOCTRADINGGROUP",
+              "instrGroupID": "B",
+              "validFrom": 1542626311000,
+              "validTo": 253402210800000
+            },
+            {
+              "scheme": "CFIGROUP",
+              "instrGroupID": "FF",
+              "validFrom": 1542626311000,
+              "validTo": 253402210800000
+            },
+            {
+              "scheme": "UK_SITUS",
+              "instrGroupID": "No",
+              "validFrom": 1542957952000,
+              "validTo": 253402210800000
+            },
+            {
+              "scheme": "LOCINSTRNATURE",
+              "instrGroupID": "X20",
+              "validFrom": 1542626311000,
+              "validTo": 253402210800000
+            },
+            {
+              "scheme": "LOCTAXGROUP",
+              "instrGroupID": "6",
+              "validFrom": 1542626506000,
+              "validTo": 253402210800000
+            }
+          ],
+          "instrumentID": 805984,
+          "isHeld": true,
+          "minTrading": 0.0,
+          "instrEuTax": {},
+          "longNameEN": "INTU, Future, 31.12.2049",
+          "reportingCPClass": "CP15",
+          "version": 3089973,
+          "lastUpdate": 1542742276000,
+          "refQuotePlaceID": 13635,
+          "instrInGroupByLocList": [
+            {
+              "instrGroupID": "3",
+              "validFrom": 1542627920000,
+              "validTo": 253402210800000,
+              "locationIdent": {
+                "locationType": 1,
+                "defaultIdent": {
+                  "symbol": "310"
+                },
+                "shortName": "Espagne",
+                "longName": "Espagne",
+                "mainCurrencyISO": "EUR"
+              }
+            },
+            {
+              "instrGroupID": "6",
+              "validFrom": 1542627923000,
+              "validTo": 253402210800000,
+              "locationIdent": {
+                "locationType": 1,
+                "defaultIdent": {
+                  "symbol": "310"
+                },
+                "shortName": "Espagne",
+                "longName": "Espagne",
+                "mainCurrencyISO": "EUR"
+              }
+            }
+          ],
+          "listingList": [
+            {
+              "currCodeISO": "GBP",
+              "listingType": {
+                "listingTypeID": 0,
+                "name": "Price per unit",
+                "quotationType": 1
+              }
+            },
+            {
+              "currCodeISO": "GBP",
+              "listingType": {
+                "listingTypeID": 0,
+                "name": "Price per unit",
+                "quotationType": 1
+              }
+            }
+          ],
+          "lastHeld": 1543878000000,
+          "regClassLevel1List": [
+            {
+              "locationid": 1229,
+              "classLevel1": "M11",
+              "regClassLevel2List": [
+                {
+                  "locationid": 1229,
+                  "allocType": 0,
+                  "applicability": 16,
+                  "classLevel1": "M11",
+                  "classLevel2": "M11I09",
+                  "classObject": 0,
+                  "validFrom": 1542627912000,
+                  "validTo": 253402210800000,
+                  "hasLevel3": false
+                },
+                {
+                  "locationid": 1229,
+                  "allocType": 0,
+                  "applicability": 16,
+                  "classLevel1": "M11",
+                  "classLevel2": "M11I02",
+                  "classObject": 0,
+                  "validFrom": 1542627914000,
+                  "validTo": 253402210800000,
+                  "hasLevel3": false
+                }
+              ]
+            }
+          ],
+          "liquidRight": 0,
+          "multiCurrency": false,
+          "tickStep": 0.0,
+          "tickValue": 0.0,
+          "underInstrNo": 1.0,
+          "underInstrSymbol": "0008024820",
+          "interestPeriod": 0,
+          "identifiers": [
+            {
+              "scheme": "LOC",
+              "symbol": "0009940177",
+              "securityRef": "LOC/0009940177"
+            }
+          ],
+          "eutax": "4",
+          "locinstrGroup": "5",
+          "loccreditCode": "SV",
+          "disabled": false,
+          "disclaimer": false,
+          "cfigroup": "FF",
+          "officialSeries": false,
+          "switchable": false,
+          "defaultSymbol": "0009940177",
+          "locinstrNatureSub": "CFDEQUITY",
+          "locindustryCode": "65D",
+          "locinstrNature": "X20"
+        }
+      }
+    ]
+  }
+}
