@@ -1,0 +1,30 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": "arn:aws:iam::254257847448:role/service-role/lambda-role"
+      },
+      "Action": "es:*",
+      "Resource": "arn:aws:es:eu-west-3:254257847448:domain/smf/*"
+    },
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": "*"
+      },
+      "Action": [
+        "es:*"
+      ],
+      "Condition": {
+        "IpAddress": {
+          "aws:SourceIp": [
+            "37.25.76.28"
+          ]
+        }
+      },
+      "Resource": "arn:aws:es:eu-west-3:254257847448:domain/smf/*"
+    }
+  ]
+}

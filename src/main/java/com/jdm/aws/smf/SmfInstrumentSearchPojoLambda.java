@@ -29,7 +29,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class SmfInstrumentSearchPojoLambda
-		extends AbstractSearchLambda {
+		extends AbstractHTTPSigningSearchLambda {
 	//implements RequestHandler<SmfInstrumentSearchPojoLambda.SearchRequest, Response> {
 
 	//public Response handleRequest(SearchRequest searchRequest, Context context) {
