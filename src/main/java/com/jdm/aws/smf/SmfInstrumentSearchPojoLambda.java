@@ -38,7 +38,7 @@ public class SmfInstrumentSearchPojoLambda
 		final Stopwatch sw = Stopwatch.createStarted();
 		Response response = null;
 		try {
-			final String jsonQuery = objectMapper.writeValueAsString(searchRequest);
+			final String jsonQuery = mapper.writeValueAsString(searchRequest);
 			log.log("    + query object to json: " + sw + "\n");
 			sw.reset()
 					.start();
@@ -51,12 +51,12 @@ public class SmfInstrumentSearchPojoLambda
 		sw.reset()
 				.start();
 		try {
-			final JsonNode esResponse = objectMapper.readTree(response.getEntity()
+			final JsonNode esResponse = mapper.readTree(response.getEntity()
 					.getContent());
 			final int count = getHitCount(esResponse);
 			log.log("    + found: " + count + "\n");
 			if (count > 0) {
-				return objectMapper.convertValue(purgeESResponse(esResponse, count), Map.class);
+				return mapper.convertValue(purgeESResponse(esResponse, count), Map.class);
 			} else {
 				return new HashMap<>();
 			}
@@ -69,7 +69,7 @@ public class SmfInstrumentSearchPojoLambda
 	}
 
 	private JsonNode purgeESResponse(final JsonNode esResponse, final int count) {
-		final ObjectNode root = objectMapper.createObjectNode();
+		final ObjectNode root = mapper.createObjectNode();
 		root.put("total", count);
 		final JsonNode result = esResponse.path("hits")
 				.path("hits");

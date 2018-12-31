@@ -44,16 +44,19 @@ class AbstractHTTPSigningSearchLambda {
 	private static final AWSCredentialsProvider credentialsProvider = new DefaultAWSCredentialsProviderChain();
 
 
-	final ObjectMapper objectMapper = new ObjectMapper();
+	final ObjectMapper mapper = new ObjectMapper();
+
+	final ProcessingUtils processingUtils = new ProcessingUtils(mapper);
 
 	AbstractHTTPSigningSearchLambda() {
-		objectMapper.configure(SerializationFeature.INDENT_OUTPUT, true);
-		objectMapper.configure(SerializationFeature.ORDER_MAP_ENTRIES_BY_KEYS, true);
+		mapper.configure(SerializationFeature.INDENT_OUTPUT, true);
+		mapper.configure(SerializationFeature.ORDER_MAP_ENTRIES_BY_KEYS, true);
 	}
 
 	Response get(final String id, final Context context) throws IOException {
 		final RestClient esClient = esClient(serviceName, region);
-		final Request request = new Request("GET", getPath + id + "/");
+		final Request request = new Request("GET", searchPath);
+		request.addParameter("q", "_id:" + id);
 
 		return esClient.performRequest(request);
 	}
