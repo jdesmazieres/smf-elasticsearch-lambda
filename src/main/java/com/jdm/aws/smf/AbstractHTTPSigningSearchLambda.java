@@ -18,50 +18,60 @@ import com.amazonaws.auth.AWSCredentialsProvider;
 import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
 import com.amazonaws.http.AWSRequestSigningApacheInterceptor;
 import com.amazonaws.services.lambda.runtime.Context;
-import com.amazonaws.services.lambda.runtime.LambdaLogger;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.apache.http.HttpEntity;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import org.apache.http.HttpHost;
 import org.apache.http.HttpRequestInterceptor;
-import org.apache.http.entity.ContentType;
-import org.apache.http.nio.entity.NStringEntity;
+import org.elasticsearch.client.Request;
 import org.elasticsearch.client.Response;
 import org.elasticsearch.client.RestClient;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Collections;
-import java.util.Map;
 import java.util.stream.Collectors;
 
-public class AbstractHTTPSigningSearchLambda {
-	private static String serviceName = "es";
-	private static String region = "eu-west-3";
-	private static String esDomain = "smf";
-	private static String esEndpoint = "https://search-" + esDomain + "-we7mrmcmnlzf4onavhr7igonye." + region + "." + serviceName + ".amazonaws.com";
-	private static String searchPath = "/instrument/_search";
-	private static String countPath = "/instrument/_count";
+class AbstractHTTPSigningSearchLambda {
+	private static final String serviceName = "es";
+	private static final String region = "eu-west-3";
+	private static final String esDomain = "smf";
+	private static final String esEndpoint = "https://search-" + esDomain + "-we7mrmcmnlzf4onavhr7igonye." + region + "." + serviceName + ".amazonaws.com";
+	private static final String searchPath = "/instrument/_search";
+	private static final String countPath = "/instrument/_count";
+	private static final String getPath = "/instrument/";
 
 	private static final AWSCredentialsProvider credentialsProvider = new DefaultAWSCredentialsProviderChain();
 
-	Response search(final String jsonRequest, final Context context) throws IOException {
-		final LambdaLogger log = context.getLogger();
 
-		final HttpEntity entity = new NStringEntity(jsonRequest, ContentType.APPLICATION_JSON);
-		final Map<String, String> params = Collections.emptyMap();
+	final ObjectMapper objectMapper = new ObjectMapper();
+
+	AbstractHTTPSigningSearchLambda() {
+		objectMapper.configure(SerializationFeature.INDENT_OUTPUT, true);
+		objectMapper.configure(SerializationFeature.ORDER_MAP_ENTRIES_BY_KEYS, true);
+	}
+
+	Response get(final String id, final Context context) throws IOException {
 		final RestClient esClient = esClient(serviceName, region);
+		final Request request = new Request("GET", getPath + id + "/");
 
-		return esClient.performRequest("POST", searchPath, params, entity);
+		return esClient.performRequest(request);
+	}
+
+	Response search(final String jsonRequest, final Context context) throws IOException {
+		final RestClient esClient = esClient(serviceName, region);
+		final Request request = new Request("POST", searchPath);
+		request.setJsonEntity(jsonRequest);
+
+		return esClient.performRequest(request);
 	}
 
 	Response count(final String jsonRequest, final Context context) throws IOException {
-		final HttpEntity entity = new NStringEntity(jsonRequest, ContentType.APPLICATION_JSON);
-		final Map<String, String> params = Collections.emptyMap();
 		final RestClient esClient = esClient(serviceName, region);
+		final Request request = new Request("POST", countPath);
+		request.setJsonEntity(jsonRequest);
 
-		return esClient.performRequest("POST", countPath, params, entity);
+		return esClient.performRequest(request);
 	}
 
 
@@ -83,37 +93,15 @@ public class AbstractHTTPSigningSearchLambda {
 					.getContent()))
 					.lines()
 					.collect(Collectors.joining("\n"));
-		} catch (IOException e) {
+		} catch (final IOException e) {
 			e.printStackTrace();
 		}
 		return content;
 	}
 
-
-	int getCount(final Response response) {
-		final ObjectMapper objectMapper = new ObjectMapper();
-
-		try {
-			JsonNode rootNode = objectMapper.readTree(getContent(response));
-			JsonNode countNode = rootNode.path("count");
-			return countNode.asInt();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return -1;
-	}
-
-	int getHitCount(final String content) {
-		final ObjectMapper objectMapper = new ObjectMapper();
-
-		try {
-			JsonNode rootNode = objectMapper.readTree(content);
-			JsonNode hitsNode = rootNode.path("hits");
-			JsonNode totalNode = hitsNode.path("total");
-			return totalNode.asInt();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return -1;
+	int getHitCount(final JsonNode rootNode) {
+		final JsonNode hitsNode = rootNode.path("hits");
+		final JsonNode totalNode = hitsNode.path("total");
+		return totalNode.asInt();
 	}
 }

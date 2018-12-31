@@ -15,103 +15,66 @@ package com.jdm.aws.smf;
 
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.LambdaLogger;
-import com.fasterxml.jackson.core.type.TypeReference;
+import com.amazonaws.services.lambda.runtime.RequestHandler;
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.google.common.base.Stopwatch;
 import org.elasticsearch.client.Response;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 public class SmfInstrumentSearchPojoLambda
-		extends AbstractHTTPSigningSearchLambda {
-	//implements RequestHandler<SmfInstrumentSearchPojoLambda.SearchRequest, Response> {
+		extends AbstractHTTPSigningSearchLambda
+		implements RequestHandler<Map<String, Object>, Map<String, Object>> {
 
-	//public Response handleRequest(SearchRequest searchRequest, Context context) {
-	public String handleSearch(String searchRequest, Context context) {
+	@Override
+	public Map<String, Object> handleRequest(final Map<String, Object> searchRequest, final Context context) {
 		final LambdaLogger log = context.getLogger();
 
-		log.log("--------------------->\n   SmfInstrumentSearchPojoLambda.search\n" + searchRequest + "\n<---------------------\n");
+		log.log("--------------------->\n   SmfInstrumentSearchPojoLambda.search\n" + searchRequest.toString() + "\n<---------------------\n");
 
+		final Stopwatch sw = Stopwatch.createStarted();
 		Response response = null;
 		try {
-			response = search(searchRequest, context);
-		} catch (IOException e) {
+			final String jsonQuery = objectMapper.writeValueAsString(searchRequest);
+			log.log("    + query object to json: " + sw + "\n");
+			sw.reset()
+					.start();
+			response = search(jsonQuery, context);
+			log.log("    + elasticSearch call: " + sw + "\n");
+		} catch (final IOException e) {
 			log.log(e.getMessage());
 			e.printStackTrace();
 		}
-		String content = getContent(response);
-		//log.log("--------------------->   SmfInstrumentSearchPojoLambda.search(): \n"+content+"\n");
-		int hitCount = getHitCount(content);
-		log.log("==================================================================>>> total: " + hitCount + "\n");
-
-		return content;
-	}
-
-	public String handleCount(String searchRequest, Context context) {
-		final LambdaLogger log = context.getLogger();
-
-		log.log("--------------------->\n   SmfInstrumentSearchPojoLambda.count\n" + searchRequest + "\n<---------------------\n");
-
-		Response response = null;
+		sw.reset()
+				.start();
 		try {
-			response = count(searchRequest, context);
-		} catch (IOException e) {
-			log.log(e.getMessage());
+			final JsonNode esResponse = objectMapper.readTree(response.getEntity()
+					.getContent());
+			final int count = getHitCount(esResponse);
+			log.log("    + found: " + count + "\n");
+			if (count > 0) {
+				return objectMapper.convertValue(purgeESResponse(esResponse, count), Map.class);
+			} else {
+				return new HashMap<>();
+			}
+		} catch (final IOException e) {
 			e.printStackTrace();
+			return null;
+		} finally {
+			log.log("    + process response content: " + sw + "\n");
 		}
-		String content = getContent(response);
-		//log.log("--------------------->   SmfInstrumentSearchPojoLambda.count(): \n"+content+"\n");
-		//int hitCount = getHitCount(content);
-		log.log("================================================================== >>> count: " + getCount(response) + "\n");
-
-		return content;
 	}
 
-	static class SearchRequest {
-
-		private String query;
-
-		public SearchRequest() {
-		}
-
-		public SearchRequest(final String queryES) {
-			this.query = queryES;
-		}
-
-		public String getQuery() {
-			return query;
-		}
-
-		public SearchRequest setQuery(final String query) {
-			this.query = query;
-			return this;
-		}
-
-	}
-
-	static class SearchResponse {
-		String jsonSearchResult;
-
-		public SearchResponse() {
-		}
-
-		public SearchResponse(String jsonSearchResult) {
-			this.jsonSearchResult = jsonSearchResult;
-		}
-
-		public String getJsonSearchResult() {
-			return jsonSearchResult;
-		}
-
-		public SearchResponse setJsonSearchResult(final String jsonSearchResult) {
-			this.jsonSearchResult = jsonSearchResult;
-			return this;
-		}
+	private JsonNode purgeESResponse(final JsonNode esResponse, final int count) {
+		final ObjectNode root = objectMapper.createObjectNode();
+		root.put("total", count);
+		final JsonNode result = esResponse.path("hits")
+				.path("hits");
+		root.put("count", result.size());
+		root.put("result", result);
+		return root;
 	}
 }

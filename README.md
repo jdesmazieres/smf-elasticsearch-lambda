@@ -23,3 +23,5 @@ To test locally the lambda execution, querying the 'real' aws elasticSearch serv
 - ElasticSearch access policies: https://aws.amazon.com/blogs/security/how-to-control-access-to-your-amazon-elasticsearch-service-domain/
 
 - Serverless deployment: https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-deploying.html#serverless-deploying-automated
+
+- https://forums.aws.amazon.com/thread.jspa?threadID=266642
