@@ -33,16 +33,15 @@ import java.io.InputStreamReader;
 import java.util.stream.Collectors;
 
 public class AbstractHTTPSigningSearchLambda {
-	private static final String serviceName = "es";
-	private static final String region = "eu-west-3";
-	private static final String esDomain = "smf";
-	private static final String esEndpoint = "https://search-" + esDomain + "-we7mrmcmnlzf4onavhr7igonye." + region + "." + serviceName + ".amazonaws.com";
-	private static final String searchPath = "/instrument/_search";
-	private static final String countPath = "/instrument/_count";
-	private static final String indexPath = "/instrument/_doc";
+	protected static final String serviceName = "es";
+	protected static final String region = "eu-west-3";
+	protected static final String esDomain = "smf";
+	protected static final String esEndpoint = "https://search-" + esDomain + "-we7mrmcmnlzf4onavhr7igonye." + region + "." + serviceName + ".amazonaws.com";
+	protected static final String searchPath = "/instrument/_search";
+	protected static final String countPath = "/instrument/_count";
+	protected static final String indexPath = "/instrument/_doc";
 
-	private static final AWSCredentialsProvider credentialsProvider = new DefaultAWSCredentialsProviderChain();
-
+	protected static final AWSCredentialsProvider credentialsProvider = new DefaultAWSCredentialsProviderChain();
 
 	protected final ObjectMapper mapper = new ObjectMapper();
 
