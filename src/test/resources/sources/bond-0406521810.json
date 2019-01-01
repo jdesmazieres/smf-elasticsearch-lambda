@@ -1,0 +1,168 @@
+{
+  "defaultSymbol": "0406521810",
+  "type": "bond",
+  "version": 2,
+  "shortName": "SIEMENS HEALTHINEERS",
+  "longNameEN": "SIEMENS HEALTHINEERS AG, Registered",
+  "eutax": "4",
+  "locinstrGroup": "5",
+  "loccreditCode": "SV",
+  "disabled": false,
+  "disclaimer": false,
+  "cfigroup": "ES",
+  "officialSeries": false,
+  "switchable": false,
+  "locindustryCode": "65R",
+  "locinstrNature": "A02",
+  "cficode": "ESVUFR",
+  "cficodeSix": "ESVTFR",
+  "bookCostCurrencyISO": "EUR",
+  "defaultInstrIdent": {
+    "symbol": "0406521810",
+    "securityRef": "CH/0406521810"
+  },
+  "instrIdents": {
+    "InstrIdScheme(name='U', value='U*')": {
+      "symbol": "D6T479107",
+      "securityRef": "U/D6T479107"
+    },
+    "InstrIdScheme(name='CH', value='CH')": {
+      "symbol": "0406521810",
+      "securityRef": "CH/0406521810"
+    },
+    "InstrIdScheme(name='XS', value='XS')": {
+      "symbol": "178851705",
+      "securityRef": "XS/178851705"
+    },
+    "InstrIdScheme(name='B2', value='B2')": {
+      "symbol": "BBG00JRNPKY9",
+      "securityRef": "B2/BBG00JRNPKY9"
+    },
+    "InstrIdScheme(name='DE', value='DE')": {
+      "symbol": "SHL100",
+      "securityRef": "DE/SHL100"
+    },
+    "InstrIdScheme(name='SEDOL', value='GB')": {
+      "symbol": "GBBD594Y4",
+      "securityRef": "SEDOL/GBBD594Y4"
+    },
+    "InstrIdScheme(name='ISIN', value='I-')": {
+      "symbol": "DE000SHL1006",
+      "securityRef": "ISIN/DE000SHL1006"
+    },
+    "InstrIdScheme(name='VALOR', value='VALOR')": {
+      "symbol": "40652181",
+      "securityRef": "VALOR/40652181"
+    },
+    "InstrIdScheme(name='IDSCH', value='IDSCH')": {
+      "symbol": "9993688",
+      "securityRef": "IDSCH/9993688"
+    }
+  },
+  "instrUsage": "BOTH",
+  "mainTrdPlaceMIC": "XETR",
+  "nativeCountryISO": "DE",
+  "nbSharesOutstanding": 1000000000,
+  "nominalCurrencyISO": "EUR",
+  "refQuoteCurrencyISO": "EUR",
+  "riskCountryISO": "DE",
+  "riskCurrencyISO": "EUR",
+  "unit": "UNIT",
+  "validFrom": 1520290800000,
+  "isHeld": true,
+  "minTrading": 0.0,
+  "reportingCPClass": "CP05",
+  "ultimateParentCountryISO": "DE",
+  "ultimateParentShortName": "Siemens AG",
+  "lastUpdate": 1544074339000,
+  "refQuotePlaceID": 10043,
+  "lastHeld": 1543964400000,
+  "liquidRight": 0,
+  "multiCurrency": false,
+  "mainTradingPlace": {
+    "homeCountryISO": "DE",
+    "identifier": {
+      "symbol": "044"
+    },
+    "shortName": "DKV-Gruppe Deutsche Boerse",
+    "longName": "DKV-Gruppe Deutsche Boerse",
+    "primaryPlace": true,
+    "institutionID": 10043,
+    "alternateTradingPlace": {
+      "symbol": "XETR"
+    },
+    "settlePeriod": 2,
+    "listing": {
+      "currCodeISO": "EUR",
+      "listingType": {
+        "listingTypeID": 0,
+        "name": "Price per unit",
+        "quotationType": 1
+      },
+      "listingIdents": [
+        {
+          "symbol": "SHL",
+          "adjustingFactor": 1.0,
+          "roundingLimit": 0.0
+        },
+        {
+          "symbol": "SHL",
+          "adjustingFactor": 1.0,
+          "roundingLimit": 0.0
+        },
+        {
+          "symbol": "SHL",
+          "adjustingFactor": 1.0,
+          "roundingLimit": 0.0
+        },
+        {
+          "symbol": "GBBD594Y4",
+          "adjustingFactor": 1.0,
+          "roundingLimit": 0.0
+        }
+      ]
+    }
+  },
+  "bbgTicker": {
+    "symbol": "SHL",
+    "securityRef": "TK/SHL"
+  },
+  "identifiers": {
+    "InstrIdScheme(name='U', value='U*')": {
+      "symbol": "D6T479107",
+      "securityRef": "U/D6T479107"
+    },
+    "InstrIdScheme(name='CH', value='CH')": {
+      "symbol": "0406521810",
+      "securityRef": "CH/0406521810"
+    },
+    "InstrIdScheme(name='XS', value='XS')": {
+      "symbol": "178851705",
+      "securityRef": "XS/178851705"
+    },
+    "InstrIdScheme(name='B2', value='B2')": {
+      "symbol": "BBG00JRNPKY9",
+      "securityRef": "B2/BBG00JRNPKY9"
+    },
+    "InstrIdScheme(name='DE', value='DE')": {
+      "symbol": "SHL100",
+      "securityRef": "DE/SHL100"
+    },
+    "InstrIdScheme(name='SEDOL', value='GB')": {
+      "symbol": "GBBD594Y4",
+      "securityRef": "SEDOL/GBBD594Y4"
+    },
+    "InstrIdScheme(name='ISIN', value='I-')": {
+      "symbol": "DE000SHL1006",
+      "securityRef": "ISIN/DE000SHL1006"
+    },
+    "InstrIdScheme(name='VALOR', value='VALOR')": {
+      "symbol": "40652181",
+      "securityRef": "VALOR/40652181"
+    },
+    "InstrIdScheme(name='IDSCH', value='IDSCH')": {
+      "symbol": "9993688",
+      "securityRef": "IDSCH/9993688"
+    }
+  }
+}

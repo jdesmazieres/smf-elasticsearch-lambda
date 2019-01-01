@@ -11,13 +11,11 @@ import com.amazonaws.services.s3.model.CopyObjectRequest;
 import com.amazonaws.services.s3.model.DeleteObjectRequest;
 import com.amazonaws.services.s3.model.GetObjectRequest;
 import com.amazonaws.services.s3.model.S3Object;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.jdm.aws.smf.AbstractHTTPSigningSearchLambda;
 import org.elasticsearch.client.Response;
 
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
+import java.io.*;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.text.MessageFormat;
@@ -32,7 +30,7 @@ public class S3EventHandlerUpdateIndex
 		extends AbstractHTTPSigningSearchLambda
 		implements RequestHandler<S3Event, Void> {
 
-	private static final String TARGET_DIR_PATTERN = "target/{0,date,yyyy-MM-dd}/";
+	private static final String TARGET_DIR_PATTERN = "archive/{0,date,yyyy-MM-dd}/";
 
 	@Override
 	public Void handleRequest(final S3Event s3event, final Context context) {
@@ -47,22 +45,31 @@ public class S3EventHandlerUpdateIndex
 					.getBucket()
 					.getName();
 			final String srcKey = getSourceFile(record);
+
+			log.log(" + loading file : " + srcBucket + "/" + srcKey + " ... \n");
 			final String jsonDocument = getS3FileContent(srcBucket, srcKey);
+			final String id = extractDocumentId(jsonDocument);
+			log.log(" + document id [" + id + "] for file : " + srcBucket + "/" + srcKey + "\n");
 
-			log.log("\n-----------------------------------\n" + jsonDocument + "\n--------------------------------\n");
-
-			final String id = "0002810800";
-
+			log.log(" + elasticSearch document indexing query ... \n");
 			final Response indexResponse = index(id, jsonDocument, context);
-			log.log("\n===================================\n" + indexResponse + "\n===================================\n");
+			log.log(" + elasticSearch indexing query response: " + indexResponse + "\n");
 
+			log.log(" + source document file archiving ... \n");
 			final String archive = archiveS3File(srcBucket, srcKey);
-			log.log("\n===================================\n archive:" + archive + "\n===================================\n");
+			log.log(" + source document file archived to:" + archive + "\n");
 		} catch (final Exception e) {
 			throw new RuntimeException(e);
 		}
 
 		return null;
+	}
+
+	private String extractDocumentId(final String jsonDocument) throws IOException {
+		// FIXME performances de parser tout le document pour un seul champ !!!
+		final JsonNode jsonNode = processingUtils.jsonToJsonNode(jsonDocument);
+		return jsonNode.path("defaultSymbol")
+				.asText();
 	}
 
 	private String getSourceFile(final S3EventNotification.S3EventNotificationRecord record) throws UnsupportedEncodingException {
@@ -96,6 +103,7 @@ public class S3EventHandlerUpdateIndex
 		// move the object into a new object in the same bucket.
 		final CopyObjectRequest copyObjRequest = new CopyObjectRequest(srcBucket, srcKey, srcBucket, tgtKey);
 		s3Client.copyObject(copyObjRequest);
+
 		final DeleteObjectRequest deleteObjRequest = new DeleteObjectRequest(srcBucket, srcKey);
 		s3Client.deleteObject(deleteObjRequest);
 
