@@ -1,0 +1,109 @@
+{
+  "defaultSymbol": "0002810800",
+  "type": "bond",
+  "version": 3,
+  "shortName": "GOLD OZ 995 USD",
+  "longNameEN": "Gold 1 Uz 995",
+  "eutax": "4",
+  "locinstrGroup": "7",
+  "loccreditCode": "ME",
+  "disabled": true,
+  "disclaimer": false,
+  "officialSeries": false,
+  "switchable": false,
+  "locindustryCode": "65F",
+  "locinstrNature": "M17",
+  "isHeld": true,
+  "unit": "UNIT",
+  "validFrom": 395618400000,
+  "lastHeld": 1543964400000,
+  "lastUpdate": 1530891553000,
+  "reportingCPClass": "CP15",
+  "bookCostCurrencyISO": "USD",
+  "mainTrdPlaceMIC": "YMET",
+  "multiCurrency": false,
+  "refQuotePlaceID": 10170,
+  "nativeCountryISO": "XM",
+  "nominalCurrencyISO": "XAU",
+  "instrUsage": "BOTH",
+  "refQuoteCurrencyISO": "USD",
+  "riskCountryISO": "XM",
+  "riskCurrencyISO": "USD",
+  "cfigroup": "MR",
+  "cficode": "TTEXXX",
+  "defaultInstrIdent": {
+    "symbol": "0002810800",
+    "securityRef": "CH/0002810800"
+  },
+  "identifiers": {
+    "InstrIdScheme(name='TK', value='TK')": {
+      "symbol": "992930",
+      "securityRef": "TK/992930"
+    },
+    "InstrIdScheme(name='XS', value='XS')": {
+      "symbol": "001190792",
+      "securityRef": "XS/001190792"
+    },
+    "InstrIdScheme(name='ISIN', value='I-')": {
+      "symbol": "XD0002810808",
+      "securityRef": "ISIN/XD0002810808"
+    },
+    "InstrIdScheme(name='CH', value='CH')": {
+      "symbol": "0002810800",
+      "securityRef": "CH/0002810800"
+    },
+    "InstrIdScheme(name='IDBTC', value='IDBTC')": {
+      "symbol": "0000002810",
+      "securityRef": "IDBTC/0000002810"
+    },
+    "InstrIdScheme(name='VALOR', value='VALOR')": {
+      "symbol": "281080",
+      "securityRef": "VALOR/281080"
+    },
+    "InstrIdScheme(name='IDBSG', value='IDBSG')": {
+      "symbol": "0281080100",
+      "securityRef": "IDBSG/0281080100"
+    },
+    "InstrIdScheme(name='IDBGE', value='IDBGE')": {
+      "symbol": "0281080000",
+      "securityRef": "IDBGE/0281080000"
+    },
+    "InstrIdScheme(name='EFshortcut', value='EFshortcut')": {
+      "symbol": "100",
+      "securityRef": "EFshortcut/100"
+    }
+  },
+  "mainTradingPlace": {
+    "homeCountryISO": "CH",
+    "identifier": {
+      "symbol": "987"
+    },
+    "shortName": "Métaux précieux",
+    "longName": "Métaux précieux",
+    "primaryPlace": true,
+    "institutionID": 11181,
+    "alternateTradingPlace": {
+      "symbol": "YMET"
+    },
+    "settlePeriod": 2,
+    "listing": {
+      "currCodeISO": "USD",
+      "listingType": {
+        "listingTypeID": 0,
+        "name": "Price per unit",
+        "quotationType": 1
+      }
+    }
+  },
+  "issuer": {
+    "homeCountryISO": "XP",
+    "identifier": {
+      "symbol": "0000459963"
+    },
+    "shortName": "Prec metal&ston",
+    "longName": "Commodities Precious metals & precious stones",
+    "primaryPlace": false,
+    "institutionID": 95373,
+    "legalForm": "99"
+  }
+}

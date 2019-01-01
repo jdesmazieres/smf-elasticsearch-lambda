@@ -35,7 +35,7 @@ public class SmfInstrumentSearch
 		final Stopwatch swAll = Stopwatch.createStarted();
 		final Stopwatch sw = Stopwatch.createStarted();
 		try {
-			final String jsonQuery = processingUtils.object2JsonString(searchRequest);
+			final String jsonQuery = processingUtils.objectToJson(searchRequest);
 			sw.reset()
 					.start();
 			final Response response = get(jsonQuery, context);

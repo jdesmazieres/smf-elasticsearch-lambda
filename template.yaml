@@ -5,8 +5,9 @@ Resources:
     Type: 'AWS::Serverless::Function'
     Properties:
       Runtime: java8
-      Handler: com.jdm.aws.smf.SmfInstrumentSearchLambda::handleSearch
-#      Handler: com.jdm.aws.smf.SmfInstrumentSearchAWS4SSignerLambda::handleSearch
-#      Handler: com.jdm.aws.smf.SmfInstrumentSearchPojoLambda::handleSearch
+      Handler: com.jdm.aws.smf.event.S3EventHandlerUpdateIndex::handleSearch
+      #      Handler: com.jdm.aws.smf.SmfInstrumentSearchLambda::handleSearch
+      #      Handler: com.jdm.aws.smf.SmfInstrumentSearchAWS4SSignerLambda::handleSearch
+      #      Handler: com.jdm.aws.smf.SmfInstrumentSearchPojoLambda::handleSearch
       Timeout: 60
       CodeUri: ./target/lambda.jar

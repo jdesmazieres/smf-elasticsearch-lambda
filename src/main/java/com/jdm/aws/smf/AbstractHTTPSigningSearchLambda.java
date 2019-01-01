@@ -32,28 +32,28 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.stream.Collectors;
 
-class AbstractHTTPSigningSearchLambda {
+public class AbstractHTTPSigningSearchLambda {
 	private static final String serviceName = "es";
 	private static final String region = "eu-west-3";
 	private static final String esDomain = "smf";
 	private static final String esEndpoint = "https://search-" + esDomain + "-we7mrmcmnlzf4onavhr7igonye." + region + "." + serviceName + ".amazonaws.com";
 	private static final String searchPath = "/instrument/_search";
 	private static final String countPath = "/instrument/_count";
-	private static final String getPath = "/instrument/";
+	private static final String indexPath = "/instrument/_doc";
 
 	private static final AWSCredentialsProvider credentialsProvider = new DefaultAWSCredentialsProviderChain();
 
 
-	final ObjectMapper mapper = new ObjectMapper();
+	protected final ObjectMapper mapper = new ObjectMapper();
 
-	final ProcessingUtils processingUtils = new ProcessingUtils(mapper);
+	protected final ProcessingUtils processingUtils = new ProcessingUtils(mapper);
 
-	AbstractHTTPSigningSearchLambda() {
+	public AbstractHTTPSigningSearchLambda() {
 		mapper.configure(SerializationFeature.INDENT_OUTPUT, true);
 		mapper.configure(SerializationFeature.ORDER_MAP_ENTRIES_BY_KEYS, true);
 	}
 
-	Response get(final String id, final Context context) throws IOException {
+	public Response get(final String id, final Context context) throws IOException {
 		final RestClient esClient = esClient(serviceName, region);
 		final Request request = new Request("GET", searchPath);
 		request.addParameter("q", "_id:" + id);
@@ -61,7 +61,7 @@ class AbstractHTTPSigningSearchLambda {
 		return esClient.performRequest(request);
 	}
 
-	Response search(final String jsonRequest, final Context context) throws IOException {
+	public Response search(final String jsonRequest, final Context context) throws IOException {
 		final RestClient esClient = esClient(serviceName, region);
 		final Request request = new Request("POST", searchPath);
 		request.setJsonEntity(jsonRequest);
@@ -69,7 +69,7 @@ class AbstractHTTPSigningSearchLambda {
 		return esClient.performRequest(request);
 	}
 
-	Response count(final String jsonRequest, final Context context) throws IOException {
+	public Response count(final String jsonRequest, final Context context) throws IOException {
 		final RestClient esClient = esClient(serviceName, region);
 		final Request request = new Request("POST", countPath);
 		request.setJsonEntity(jsonRequest);
@@ -77,9 +77,16 @@ class AbstractHTTPSigningSearchLambda {
 		return esClient.performRequest(request);
 	}
 
+	public Response index(final String id, final String jsonRequest, final Context context) throws IOException {
+		final RestClient esClient = esClient(serviceName, region);
+		final Request request = new Request("POST", indexPath + "/" + id);
+		request.setJsonEntity(jsonRequest);
+
+		return esClient.performRequest(request);
+	}
 
 	// Adds the interceptor to the ES REST client
-	private RestClient esClient(final String serviceName, final String region) {
+	public RestClient esClient(final String serviceName, final String region) {
 		final AWS4Signer signer = new AWS4Signer();
 		signer.setServiceName(serviceName);
 		signer.setRegionName(region);
@@ -89,7 +96,7 @@ class AbstractHTTPSigningSearchLambda {
 				.build();
 	}
 
-	String getContent(final Response response) {
+	public String getContent(final Response response) {
 		String content = "";
 		try {
 			content = new BufferedReader(new InputStreamReader(response.getEntity()
@@ -102,7 +109,7 @@ class AbstractHTTPSigningSearchLambda {
 		return content;
 	}
 
-	int getHitCount(final JsonNode rootNode) {
+	public int getHitCount(final JsonNode rootNode) {
 		final JsonNode hitsNode = rootNode.path("hits");
 		final JsonNode totalNode = hitsNode.path("total");
 		return totalNode.asInt();

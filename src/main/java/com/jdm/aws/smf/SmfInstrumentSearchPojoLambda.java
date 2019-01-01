@@ -74,7 +74,7 @@ public class SmfInstrumentSearchPojoLambda
 		final JsonNode result = esResponse.path("hits")
 				.path("hits");
 		root.put("count", result.size());
-		root.put("result", result);
+		root.set("result", result);
 		return root;
 	}
 }

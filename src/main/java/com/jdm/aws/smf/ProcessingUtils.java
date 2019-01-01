@@ -1,6 +1,5 @@
 package com.jdm.aws.smf;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
@@ -73,8 +72,20 @@ public class ProcessingUtils {
 		return searchResult;
 	}
 
-	public String object2JsonString(final Object object) throws JsonProcessingException {
-		return mapper.writeValueAsString(object);
+	public JsonNode jsonToJsonNode(final String json) throws IOException {
+		return mapper.readTree(json);
+	}
+
+	public String jsonNodeToJson(final JsonNode jsonNode) throws IOException {
+		final ObjectMapper mapper = new ObjectMapper();
+		final Object json = mapper.readValue(jsonNode.toString(), Object.class);
+		return mapper.writerWithDefaultPrettyPrinter()
+				.writeValueAsString(json);
+	}
+
+	public String objectToJson(final Object object) throws IOException {
+		return mapper.writerWithDefaultPrettyPrinter()
+				.writeValueAsString(object);
 	}
 
 	public JsonNode response2Json(final Response response) throws IOException {
@@ -83,10 +94,9 @@ public class ProcessingUtils {
 	}
 
 	public String getResponseContent(final Response response) throws IOException {
-		final String content = new BufferedReader(new InputStreamReader(response.getEntity()
+		return new BufferedReader(new InputStreamReader(response.getEntity()
 				.getContent()))
 				.lines()
 				.collect(Collectors.joining("\n"));
-		return content;
 	}
 }

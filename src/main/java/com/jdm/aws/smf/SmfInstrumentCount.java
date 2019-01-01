@@ -36,7 +36,7 @@ public class SmfInstrumentCount
 		final Stopwatch sw = Stopwatch.createStarted();
 		final Response response;
 		try {
-			final String jsonQuery = processingUtils.object2JsonString(countRequest);
+			final String jsonQuery = processingUtils.objectToJson(countRequest);
 			sw.reset()
 					.start();
 			response = count(jsonQuery, context);
