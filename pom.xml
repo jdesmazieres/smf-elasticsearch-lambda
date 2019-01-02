@@ -9,9 +9,11 @@
         <awsRegion>eu-west-3</awsRegion>
         <s3Bucket>smf-storage</s3Bucket>
         <s3Prefix>deploy/smf-elasticsearch-lambda</s3Prefix>
-        <stackName>smf-elasticsearch-lambda</stackName>
+        <stackName>smf</stackName>
         <skipLocalInvoke>true</skipLocalInvoke>
         <aws.sdk.version>1.11.475</aws.sdk.version>
+        <jodatime.version>2.10.1</jodatime.version>
+        <version.jackson.core>2.8.11</version.jackson.core>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
@@ -90,6 +92,8 @@
                                 <argument>invoke</argument>
                                 <argument>-e</argument>
                                 <argument>event.json</argument>
+                                <argument>-l</argument>
+                                <argument>target/sam-invoke-local.log</argument>
                             </arguments>
                             <skip>${skipLocalInvoke}</skip>
                         </configuration>
@@ -143,6 +147,16 @@
                 <groupId>commons-logging</groupId>
                 <artifactId>commons-logging</artifactId>
                 <version>1.2</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-core</artifactId>
+                <version>${version.jackson.core}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.dataformat</groupId>
+                <artifactId>jackson-dataformat-cbor</artifactId>
+                <version>${version.jackson.core}</version>
             </dependency>
             <dependency>
                 <groupId>com.amazonaws</groupId>
@@ -211,6 +225,16 @@
                 <artifactId>transport</artifactId>
                 <version>6.5.4</version>
             </dependency>
+            <dependency>
+                <groupId>org.apache.httpcomponents</groupId>
+                <artifactId>httpclient</artifactId>
+                <version>4.5.5</version>
+            </dependency>
+            <dependency>
+                <groupId>joda-time</groupId>
+                <artifactId>joda-time</artifactId>
+                <version>${jodatime.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -249,10 +273,14 @@
                     <artifactId>aws-java-sdk-opensdk</artifactId>
                     <version>1.11.337</version>
                 </dependency>
+                <dependency>
+                    <groupId>org.elasticsearch</groupId>
+                    <artifactId>elasticsearch</artifactId>
+                </dependency>
         -->
         <dependency>
-            <groupId>org.elasticsearch</groupId>
-            <artifactId>elasticsearch</artifactId>
+            <groupId>com.github.awslabs</groupId>
+            <artifactId>aws-request-signing-apache-interceptor</artifactId>
         </dependency>
         <dependency>
             <groupId>org.elasticsearch.client</groupId>
@@ -266,15 +294,25 @@
             <groupId>com.amazonaws</groupId>
             <artifactId>aws-java-sdk-s3</artifactId>
         </dependency>
-        <dependency>
-            <groupId>com.github.awslabs</groupId>
-            <artifactId>aws-request-signing-apache-interceptor</artifactId>
-        </dependency>
         <!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
             <version>23.0</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>animal-sniffer-annotations</artifactId>
+                    <groupId>org.codehaus.mojo</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>error_prone_annotations</artifactId>
+                    <groupId>com.google.errorprone</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>j2objc-annotations</artifactId>
+                    <groupId>com.google.j2objc</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
     </dependencies>
 

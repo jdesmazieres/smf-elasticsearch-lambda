@@ -30,7 +30,7 @@ public class SmfInstrumentSearch
 	public SearchResult handleRequest(final Map<String, Object> searchRequest, final Context context) {
 		final LambdaLogger log = context.getLogger();
 
-		log.log("--------------------->\n   SmfInstrumentSearch.search\n" + searchRequest.toString() + "\n<---------------------\n");
+		log.log(" + SmfInstrumentSearch.search('" + searchRequest.toString() + "')\n");
 
 		final Stopwatch swAll = Stopwatch.createStarted();
 		final Stopwatch sw = Stopwatch.createStarted();
@@ -38,7 +38,7 @@ public class SmfInstrumentSearch
 			final String jsonQuery = processingUtils.objectToJson(searchRequest);
 			sw.reset()
 					.start();
-			final Response response = get(jsonQuery, context);
+			final Response response = search(jsonQuery, context);
 			log.log("    + elasticSearch call: " + sw + "\n");
 			sw.reset()
 					.start();

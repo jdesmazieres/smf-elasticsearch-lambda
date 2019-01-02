@@ -30,7 +30,7 @@ public class SmfInstrumentGet
 	public GetResult handleRequest(final Map<String, Object> searchRequest, final Context context) {
 		final LambdaLogger log = context.getLogger();
 
-		log.log("--------------------->\n   SmfInstrumentGet.get\n" + searchRequest.toString() + "\n<---------------------\n");
+		log.log(" + SmfInstrumentGet.get('" + searchRequest.toString() + "')\n");
 
 		final Stopwatch swAll = Stopwatch.createStarted();
 		final Stopwatch sw = Stopwatch.createStarted();

@@ -30,7 +30,7 @@ public class SmfInstrumentCount
 	public CountResult handleRequest(final Map<String, Object> countRequest, final Context context) {
 		final LambdaLogger log = context.getLogger();
 
-		log.log("--------------------->\n   SmfInstrumentCount.count\n" + countRequest.toString() + "\n<---------------------\n");
+		log.log(" + SmfInstrumentCount.count('" + countRequest.toString() + "')\n");
 
 		final Stopwatch swAll = Stopwatch.createStarted();
 		final Stopwatch sw = Stopwatch.createStarted();
