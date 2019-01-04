@@ -1,0 +1,182 @@
+{
+  "defaultSymbol": "0002810800",
+  "type": "commodity",
+  "class": "commodities",
+  "isHeld": true,
+  "version": 1,
+  "shortName": "GOLD OZ 995 USD",
+  "longNameEN": "Gold 1 Uz 995",
+  "eutax": "4",
+  "locinstrGroup": "7",
+  "loccreditCode": "ME",
+  "disabled": true,
+  "disclaimer": false,
+  "cfigroup": "MR",
+  "officialSeries": false,
+  "switchable": false,
+  "disabledYN": true,
+  "disclaimerYN": false,
+  "instrUsage": "BOTH",
+  "mainTrdPlaceMIC": "YMET",
+  "nativeCountryISO": "XM",
+  "nominalCurrencyISO": "XAU",
+  "officialSeriesYN": false,
+  "refQuoteCurrencyISO": "USD",
+  "riskCountryISO": "XM",
+  "riskCurrencyISO": "USD",
+  "unit": "UNIT",
+  "validFrom": 395618400000,
+  "switchableYN": false,
+  "structuredProductYN": false,
+  "reportingCPClass": "CP15",
+  "lastUpdate": 1530891553000,
+  "refQuotePlaceID": 10170,
+  "lastHeld": 1543964400000,
+  "grossWeight": 1.0,
+  "mainTradingPlace": {
+    "homeCountryISO": "CH",
+    "identifier": {
+      "symbol": "987"
+    },
+    "shortName": "Métaux précieux",
+    "longName": "Métaux précieux",
+    "institutionID": 11181,
+    "settlePeriod": 2
+  },
+  "defaultInstrIdent": {
+    "symbol": "0002810800",
+    "securityRef": "CH/0002810800"
+  },
+  "instrInGroupByLocList": [
+    {
+      "scheme": {},
+      "instrGroupID": "NA",
+      "validFrom": 1506696066000,
+      "validTo": 253402210800000,
+      "locationIdent": {
+        "identifier": null,
+        "locationType": 1,
+        "defaultIdent": {
+          "identifier": null,
+          "scheme": null,
+          "symbol": "310",
+          "identifierSet": false,
+          "identifierAsString": "Identifier not set"
+        },
+        "locationIdents": {},
+        "shortName": "Espagne",
+        "longName": "Espagne",
+        "blackListYN": false,
+        "regionType": null,
+        "mainCurrencyISO": "EUR",
+        "type": {}
+      }
+    },
+    {
+      "scheme": {},
+      "instrGroupID": "1",
+      "validFrom": 1193007908000,
+      "validTo": 253402210800000,
+      "locationIdent": {
+        "identifier": null,
+        "locationType": 2,
+        "defaultIdent": {
+          "identifier": null,
+          "scheme": null,
+          "symbol": "816",
+          "identifierSet": false,
+          "identifierAsString": "Identifier not set"
+        },
+        "locationIdents": {},
+        "shortName": "European Economic Area",
+        "longName": "European Economic Area",
+        "blackListYN": false,
+        "regionType": null,
+        "mainCurrencyISO": "",
+        "type": {}
+      }
+    },
+    {
+      "scheme": {},
+      "instrGroupID": "6",
+      "validFrom": 1506696649000,
+      "validTo": 253402210800000,
+      "locationIdent": {
+        "identifier": null,
+        "locationType": 1,
+        "defaultIdent": {
+          "identifier": null,
+          "scheme": null,
+          "symbol": "310",
+          "identifierSet": false,
+          "identifierAsString": "Identifier not set"
+        },
+        "locationIdents": {},
+        "shortName": "Espagne",
+        "longName": "Espagne",
+        "blackListYN": false,
+        "regionType": null,
+        "mainCurrencyISO": "EUR",
+        "type": {}
+      }
+    }
+  ],
+  "identifiers": {
+    "InstrIdScheme(name='TK', value='TK')": {
+      "symbol": "992930",
+      "status": 2,
+      "securityRef": "TK/992930"
+    },
+    "InstrIdScheme(name='XS', value='XS')": {
+      "symbol": "001190792",
+      "status": 2,
+      "securityRef": "XS/001190792"
+    },
+    "InstrIdScheme(name='ISIN', value='I-')": {
+      "symbol": "XD0002810808",
+      "status": 2,
+      "securityRef": "ISIN/XD0002810808"
+    },
+    "InstrIdScheme(name='CH', value='CH')": {
+      "symbol": "0002810800",
+      "status": 2,
+      "securityRef": "CH/0002810800"
+    },
+    "InstrIdScheme(name='IDBTC', value='IDBTC')": {
+      "symbol": "0000002810",
+      "status": 2,
+      "securityRef": "IDBTC/0000002810"
+    },
+    "InstrIdScheme(name='VALOR', value='VALOR')": {
+      "symbol": "281080",
+      "status": 2,
+      "securityRef": "VALOR/281080"
+    },
+    "InstrIdScheme(name='IDBSG', value='IDBSG')": {
+      "symbol": "0281080100",
+      "status": 2,
+      "securityRef": "IDBSG/0281080100"
+    },
+    "InstrIdScheme(name='IDBGE', value='IDBGE')": {
+      "symbol": "0281080000",
+      "status": 0,
+      "securityRef": "IDBGE/0281080000"
+    },
+    "InstrIdScheme(name='EFshortcut', value='EFshortcut')": {
+      "symbol": "100",
+      "status": 2,
+      "securityRef": "EFshortcut/100"
+    }
+  },
+  "issuer": {
+    "homeCountryISO": "XP",
+    "identifier": {
+      "symbol": "0000459963"
+    },
+    "shortName": "Prec metal&ston",
+    "longName": "Commodities Precious metals & precious stones",
+    "primaryPlace": false,
+    "institutionID": 95373,
+    "legalForm": "99"
+  }
+}

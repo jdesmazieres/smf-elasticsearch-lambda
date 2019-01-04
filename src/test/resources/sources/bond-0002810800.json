@@ -1,6 +1,7 @@
 {
   "defaultSymbol": "0002810800",
   "type": "bond",
+  "class": "debts",
   "version": 5,
   "shortName": "GOLD OZ 995 USD",
   "longNameEN": "Gold 1 Uz 995",
@@ -29,8 +30,6 @@
   "refQuoteCurrencyISO": "USD",
   "riskCountryISO": "XM",
   "riskCurrencyISO": "USD",
-  "cfigroup": "MR",
-  "cficode": "TTEXXX",
   "defaultInstrIdent": {
     "symbol": "0002810800",
     "securityRef": "CH/0002810800"

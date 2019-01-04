@@ -1,6 +1,7 @@
 {
   "defaultSymbol": "0406521810",
   "type": "bond",
+  "class": "debts",
   "version": 2,
   "shortName": "SIEMENS HEALTHINEERS",
   "longNameEN": "SIEMENS HEALTHINEERS AG, Registered",
