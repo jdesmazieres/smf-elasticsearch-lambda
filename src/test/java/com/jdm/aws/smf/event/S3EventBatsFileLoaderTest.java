@@ -28,11 +28,11 @@ public class S3EventBatsFileLoaderTest {
 				.getLogger();
 		doAnswer(invocation -> {
 			Object arg0 = invocation.getArgument(0);
-			System.out.println(arg0);
+			System.out.print(arg0);
 			return null;
 		}).when(log)
 				.log(anyString());
-		doNothing().when(loader)
+		doReturn("jsonFile").when(loader)
 				.storeS3FileContent(any(), any(), any());
 		doReturn("archive").when(loader)
 				.archiveS3File(any(), any());
@@ -42,8 +42,8 @@ public class S3EventBatsFileLoaderTest {
 	public void processS3File() throws Exception {
 		final String csvBats = new String(Files.readAllBytes(Paths.get(bats_file)));
 		loader.processS3File("scrBucket", "srcKey", csvBats, null, context);
-		verify(loader, times(4)).processCsvRow(any(), any(), any(), any(), any());
-		verify(loader, times(4)).storeS3FileContent(any(), any(), contentCptor.capture());
+		verify(loader, times(5)).processCsvRow(any(), any(), any(), any(), any());
+		verify(loader, times(5)).storeS3FileContent(any(), any(), contentCptor.capture());
 		verify(loader, times(1)).archiveS3File(any(), any());
 	}
 
@@ -57,15 +57,16 @@ public class S3EventBatsFileLoaderTest {
 		verify(loader, times(1)).processCsvRow(any(), any(), any(), any(), any());
 		verify(loader, times(1)).storeS3FileContent(any(), any(), contentCptor.capture());
 		final String json = contentCptor.getValue();
-		System.out.println(json);
 		assertThat(json).startsWith("{");
 		assertThat(json).contains("\"symbol\" : \"ADSd\"");
-		assertThat(json).contains("\"class\" : \"EQTY\"");
-		assertThat(json).contains("\"type\" : \"BXESymbols\"");
+		assertThat(json).contains("\"type\" : \"Equity\"");
+		assertThat(json).contains("\"sub-type\" : \"EQTY\"");
+		assertThat(json).contains("\"category\" : \"BXESymbols\"");
 		assertThat(json).contains("\"provider\" : \"Bats\"");
 		assertThat(json).contains("\"mic\" : \"XETR\"");
 		assertThat(json).contains("\"isin\" : \"DE000A1EWWW0\"");
 		assertThat(json).contains("\"currency\" : \"EUR\"");
+		assertThat(json).contains("\"identifiers\" : [");
 		assertThat(json).endsWith("}");
 	}
 
@@ -83,15 +84,16 @@ public class S3EventBatsFileLoaderTest {
 		assertThat(bucketCptor.getValue()).isEqualToIgnoringCase("destBucket");
 		assertThat(keyCptor.getValue()).isEqualToIgnoringCase("instrument/source/bats-ADSd.json");
 		final String json = contentCptor.getValue();
-		System.out.println(json);
 		assertThat(json).startsWith("{");
 		assertThat(json).contains("\"symbol\" : \"ADSd\"");
-		assertThat(json).contains("\"class\" : \"EQTY\"");
-		assertThat(json).contains("\"type\" : \"BXESymbols\"");
+		assertThat(json).contains("\"type\" : \"Equity\"");
+		assertThat(json).contains("\"sub-type\" : \"EQTY\"");
+		assertThat(json).contains("\"category\" : \"BXESymbols\"");
 		assertThat(json).contains("\"provider\" : \"Bats\"");
 		assertThat(json).contains("\"mic\" : \"XETR\"");
 		assertThat(json).contains("\"isin\" : \"DE000A1EWWW0\"");
 		assertThat(json).contains("\"currency\" : \"EUR\"");
+		assertThat(json).contains("\"identifiers\" : [");
 		assertThat(json).endsWith("}");
 	}
 }

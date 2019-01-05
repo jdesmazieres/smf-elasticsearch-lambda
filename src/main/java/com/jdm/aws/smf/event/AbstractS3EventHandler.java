@@ -25,7 +25,7 @@ public abstract class AbstractS3EventHandler
 		extends AbstractHTTPSigningSearchLambda
 		implements RequestHandler<S3Event, Void> {
 
-	private static final String TARGET_DIR_PATTERN = "archive/{0,date,yyyy-MM-dd}/";
+	private static final String TARGET_DIR_PATTERN = "instrument/archive/{0,date,yyyy-MM-dd}/";
 
 	abstract void processS3File(final String srcBucket, final String srcKey, final String srcContent, final S3Event s3event, final Context context) throws Exception;
 
@@ -71,10 +71,10 @@ public abstract class AbstractS3EventHandler
 		final InputStream objectData = s3Object.getObjectContent();
 		return new BufferedReader(new InputStreamReader(objectData))
 				.lines()
-				.collect(Collectors.joining(" "));
+				.collect(Collectors.joining("\n"));
 	}
 
-	void storeS3FileContent(final String srcBucket, final String srcKey, final String content) {
+	String storeS3FileContent(final String srcBucket, final String srcKey, final String content) {
 		final AmazonS3 s3Client = AmazonS3Client.builder()
 				.build();
 		final ObjectMetadata meta = new ObjectMetadata();
@@ -82,6 +82,7 @@ public abstract class AbstractS3EventHandler
 		meta.setContentType("application/json");
 		final InputStream is = new ByteArrayInputStream(content.getBytes(StandardCharsets.UTF_8));
 		s3Client.putObject(new PutObjectRequest(srcBucket, srcKey, is, meta));
+		return srcBucket + "/" + srcKey;
 	}
 
 	String archiveS3File(final String srcBucket, final String srcKey) {
@@ -90,7 +91,7 @@ public abstract class AbstractS3EventHandler
 
 		// must not be a subdirectory of source directory, otherwise infinite calls
 		final String targetDir = MessageFormat.format(TARGET_DIR_PATTERN, new Date());
-		final String tgtKey = srcKey.replace("source/", targetDir);
+		final String tgtKey = srcKey.replace("instrument/", targetDir);
 
 		// move the object into a new object in the same bucket.
 		final CopyObjectRequest copyObjRequest = new CopyObjectRequest(srcBucket, srcKey, srcBucket, tgtKey);

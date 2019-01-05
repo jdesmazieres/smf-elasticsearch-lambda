@@ -153,25 +153,21 @@
                 <groupId>com.fasterxml.jackson.core</groupId>
                 <artifactId>jackson-core</artifactId>
                 <version>${version.jackson.core}</version>
-                <scope>compile</scope>
             </dependency>
             <dependency>
                 <groupId>com.fasterxml.jackson.dataformat</groupId>
                 <artifactId>jackson-dataformat-cbor</artifactId>
                 <version>${version.jackson.core}</version>
-                <scope>provided</scope>
             </dependency>
             <dependency>
                 <groupId>com.amazonaws</groupId>
                 <artifactId>aws-lambda-java-core</artifactId>
                 <version>1.2.0</version>
-                <scope>provided</scope>
             </dependency>
             <dependency>
                 <groupId>com.amazonaws</groupId>
                 <artifactId>aws-java-sdk-simpleworkflow</artifactId>
                 <version>${aws.sdk.version}</version>
-                <scope>provided</scope>
             </dependency>
             <!-- https://mvnrepository.com/artifact/com.amazonaws/aws-java-sdk -->
             <dependency>
@@ -185,21 +181,18 @@
                 <groupId>com.amazonaws</groupId>
                 <artifactId>aws-java-sdk-core</artifactId>
                 <version>${aws.sdk.version}</version>
-                <scope>compile</scope>
             </dependency>
             <!-- https://mvnrepository.com/artifact/com.amazonaws/aws-lambda-java-events -->
             <dependency>
                 <groupId>com.amazonaws</groupId>
                 <artifactId>aws-lambda-java-events</artifactId>
                 <version>2.2.4</version>
-                <scope>provided</scope>
             </dependency>
             <!-- https://mvnrepository.com/artifact/com.amazonaws/aws-java-sdk-elasticsearch -->
             <dependency>
                 <groupId>com.amazonaws</groupId>
                 <artifactId>aws-java-sdk-elasticsearch</artifactId>
                 <version>${aws.sdk.version}</version>
-                <scope>provided</scope>
             </dependency>
             <!-- https://mvnrepository.com/artifact/org.elasticsearch/elasticsearch -->
             <dependency>
@@ -218,7 +211,6 @@
                 <groupId>com.amazonaws</groupId>
                 <artifactId>aws-java-sdk-s3</artifactId>
                 <version>1.11.475</version>
-                <scope>provided</scope>
             </dependency>
             <dependency>
                 <groupId>com.github.awslabs</groupId>
@@ -250,6 +242,11 @@
                 <groupId>com.opencsv</groupId>
                 <artifactId>opencsv</artifactId>
                 <version>4.4</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>3.8.1</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -311,25 +308,31 @@
             <artifactId>aws-java-sdk-s3</artifactId>
         </dependency>
         <!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
-        <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-            <version>23.0</version>
-            <exclusions>
-                <exclusion>
-                    <artifactId>animal-sniffer-annotations</artifactId>
-                    <groupId>org.codehaus.mojo</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>error_prone_annotations</artifactId>
-                    <groupId>com.google.errorprone</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>j2objc-annotations</artifactId>
-                    <groupId>com.google.j2objc</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
+        <!--
+                <dependency>
+                    <groupId>com.google.guava</groupId>
+                    <artifactId>guava</artifactId>
+                    <version>23.0</version>
+                    <exclusions>
+                        <exclusion>
+                            <artifactId>animal-sniffer-annotations</artifactId>
+                            <groupId>org.codehaus.mojo</groupId>
+                        </exclusion>
+                        <exclusion>
+                            <artifactId>error_prone_annotations</artifactId>
+                            <groupId>com.google.errorprone</groupId>
+                        </exclusion>
+                        <exclusion>
+                            <artifactId>j2objc-annotations</artifactId>
+                            <groupId>com.google.j2objc</groupId>
+                        </exclusion>
+                        <exclusion>
+                            <artifactId>jsr305</artifactId>
+                            <groupId>com.google.code.findbugs</groupId>
+                        </exclusion>
+                    </exclusions>
+                </dependency>
+        -->
         <dependency>
             <groupId>com.opencsv</groupId>
             <artifactId>opencsv</artifactId>

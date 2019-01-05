@@ -4,6 +4,7 @@ import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.LambdaLogger;
 import com.amazonaws.services.lambda.runtime.events.S3Event;
 import com.fasterxml.jackson.databind.JsonNode;
+import org.apache.commons.lang3.StringUtils;
 import org.elasticsearch.client.Response;
 
 import java.io.IOException;
@@ -34,7 +35,12 @@ public class S3EventHandlerUpdateIndex
 	private String extractDocumentId(final String jsonDocument) throws IOException {
 		// FIXME performances de parser tout le document pour un seul champ !!!
 		final JsonNode jsonNode = processingUtils.jsonToJsonNode(jsonDocument);
-		return jsonNode.path("defaultSymbol")
+		String id = jsonNode.path("defaultSymbol")
 				.asText();
+		if (StringUtils.isBlank(id)) {
+			id = jsonNode.path("symbol")
+					.asText();
+		}
+		return id;
 	}
 }
